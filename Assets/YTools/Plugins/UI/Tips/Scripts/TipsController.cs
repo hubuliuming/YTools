@@ -96,7 +96,7 @@ public class TipsController : MonoBehaviour
                 imgs[i].gameObject.SetActive(false);
             }
         }
-        MonoManager.Instance.StartCoroutine(FitterOperation(texts.Length));
+        MonoGlobal.Instance.StartCoroutine(FitterOperation(texts.Length));
     }
 
     /// <summary>

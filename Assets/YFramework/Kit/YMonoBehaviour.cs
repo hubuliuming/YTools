@@ -9,6 +9,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using YFramework.Extension;
+using YFramework.Kit.Utility;
+using YFramework.Math;
 
 namespace YFramework
 {
@@ -17,21 +20,21 @@ namespace YFramework
 
         #region TimeDelay
         //利用协程实现定时
-        public void Delay(float delay, Action onFinished)
+        public void Delay(Action onFinished,float delay)
         {
-            StartCoroutine(CorDelay(delay, onFinished));
+            CorDelay(delay, onFinished).StartCoroutine(this);
         }
+     
+        public void DelayOneFrame(Action callback)
+        {
+            CorDelayOneFrame(callback).StartCoroutine(this);
+        }
+  
         private IEnumerator CorDelay(float delay, Action onFinished = null)
         {
             yield return new WaitForSeconds(delay);
             onFinished?.Invoke();
         }
-
-        public void DelayOneFrame(Action callback)
-        {
-            StartCoroutine(CorDelayOneFrame(callback));
-        }
-
         private IEnumerator CorDelayOneFrame(Action callback)
         {
             yield return null;
@@ -39,24 +42,22 @@ namespace YFramework
         }
         
         #endregion
-
-        protected virtual void OnDestroy()
-        {
-            Kit.MsgDispatcher.UnRegisterAll();
-        }
     }
 
-    public class MonoManager : YMonoBehaviour
+    /// <summary>
+    /// 全局唯一共享MonoBehaviour
+    /// </summary>
+    public class MonoGlobal : YMonoBehaviour
     {
-        private static MonoManager _instance;
-        public static MonoManager Instance
+        private static MonoGlobal _instance;
+        public static MonoGlobal Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    var go = new GameObject(nameof(MonoManager));
-                    var t = go.AddComponent<MonoManager>();
+                    var go = new GameObject(nameof(MonoGlobal));
+                    var t = go.AddComponent<MonoGlobal>();
                     _instance = t;
                 }
                 return _instance;
