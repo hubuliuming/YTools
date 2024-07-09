@@ -5,35 +5,18 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
+using YFramework;
 
 
-
-public class Test1 : MonoBehaviour
+public class Test1 : YMonoBehaviour
 {
     private IEnumerator Start()
     {
         yield return null;
-       
-        using (var stream = File.Open(Application.streamingAssetsPath+"/HH.txt", FileMode.Create))
-        {
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
-            {
-                writer.Write(1.250F);
-                writer.Write(@"c:\Temp");
-                writer.Write(10);
-                writer.Write(true);
-            }
-        }
-        using (var readerSteam = new FileStream(Application.streamingAssetsPath+"/DD.txt",FileMode.Open,FileAccess.Read))
-        {
-            using (var reader = new BinaryReader(readerSteam,Encoding.UTF8))
-            {
-                    Debug.Log(reader.ReadString());
-                // Debug.Log(reader.ReadString());
-                // Debug.Log(reader.ReadString());
-            }
-        }
-    
+        GetOrAddComponent<InputField>();
+
+
     }
 
     private void Update()
