@@ -10,12 +10,14 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using YFramework.Extension;
 
 public class QuestTest 
 {
-    [MenuItem("Tools/TestClick11")]
+    [MenuItem("YFramework/QuestClick")]
     private static void Click()
     {
-       
+        string email = "hubuliuminggmail.com";
+        Debug.Log(email.IsEmail());
     }
 }

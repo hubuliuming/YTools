@@ -2,36 +2,36 @@
 
 using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YFramework;
+using Random = UnityEngine.Random;
 
 
 public class Test1 : YMonoBehaviour
 {
-    public Transform target; // 目标位置
-    public ParticleSystem particleSystem;
-
+    
     private void Start()
     {
+        Random.InitState(4);
     }
 
     void Update()
     {
-        ParticleSystem.Particle[] particles = new ParticleSystem.Particle[particleSystem.main.maxParticles];
-        int numParticlesAlive = particleSystem.GetParticles(particles);
-
-        for (int i = 0; i < numParticlesAlive; i++)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Vector3 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - particles[i].position).normalized;
-            Vector3 direction = (target.position - particles[i].position).normalized;
-            //direction = transform.TransformDirection(direction);
-            particles[i].velocity = direction * 3.0f; // 调整速度
+            Debug.Log(Random.value);
         }
 
-        particleSystem.SetParticles(particles, numParticlesAlive);
+        var x = Input.GetAxis("Horizontal");
+        var y = Input.GetAxis("Vertical");
+
+        var moment = new Vector3(x, 0, y);
+
+        moment = Vector3.ClampMagnitude(moment, 5);
+        
+        moment = transform.TransformDirection(moment);
+        
     }
 }
 
