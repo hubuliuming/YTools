@@ -22,7 +22,7 @@ namespace YFramework.Extension
             typewriter.StartWrite();
             if(!typewriter.Active) onFinish?.Invoke();
         }
-
+        
         public static bool IsEmail(this string email)
         {
             string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";

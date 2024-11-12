@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 using YFramework;
@@ -14,6 +15,9 @@ public class Test1 : YMonoBehaviour
     private void Start()
     {
         Random.InitState(4);
+        Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+        socket.Poll(1000, SelectMode.SelectRead);
     }
 
     void Update()

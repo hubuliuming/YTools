@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace YFramework.Extension
@@ -47,6 +46,5 @@ namespace YFramework.Extension
 
             return txt;
         }
-        
     }
 }
