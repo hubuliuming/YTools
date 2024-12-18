@@ -27,6 +27,7 @@ public class Test1 : YMonoBehaviour
         {
             Debug.Log($"Frame {i + 1}, first float: {frames[i][0]}");
         }
+        
     }
     
     static List<float[]> ParseBinaryFile(string filePath, int floatsPerFrame)

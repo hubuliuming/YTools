@@ -6,10 +6,12 @@
     功能：Nothing
 *****************************************************/
 
+using System;
 using DG.Tweening;
 using UnityEngine;
 
 //todo 
+[Obsolete("未完成")]
 public class PhotoWall : MonoBehaviour
 {
     public RectTransform prefab;
