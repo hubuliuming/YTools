@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DrawLineCollider2D : MonoBehaviour
@@ -27,17 +26,17 @@ public class DrawLineCollider2D : MonoBehaviour
     private void Start()
     {
         _drawLine = GetComponent<DrawLineControl>();
-        _drawLine.OnCreateDraw.OnTrigger = OnCreateLine;
+        _drawLine.OnCreateDraw += OnCreateLine;
         InitState();
     }
 
     private void Update()
     { 
-        if (_drawLine.curLinePoints.Count > 1)
+        if (_drawLine.curLinePoints.Count > 0)
         {
-          
-            _points.Add(_drawLine.curLinePoints[1]);
-           
+            Debug.Log(_drawLine.curLinePoints.Count);
+            //_points.Add(_drawLine.curLinePoints[0]);
+            //简单根据距离优化一下点数，实际画线速度和弧度都有较大的影响
             while (_writeIndex < _drawLine.curLinePoints.Count - 1)
             {
                 if (Vector2.Distance(_drawLine.curLinePoints[_readIndex], _drawLine.curLinePoints[_writeIndex + 1]) >=
@@ -46,7 +45,7 @@ public class DrawLineCollider2D : MonoBehaviour
                     _readIndex = _writeIndex;
                     //生成碰撞体
                     _points.Add(_drawLine.curLinePoints[_readIndex]);
-                    
+                    _collider2D.points = _points.ToArray();
                 }
                
                 _writeIndex++;
@@ -65,10 +64,10 @@ public class DrawLineCollider2D : MonoBehaviour
     private void OnCreateLine()
     {
         Debug.Log("新建了一个Line");
-        _readIndex = 1;
-        _writeIndex = 1;
+        _readIndex = 0;
+        _writeIndex = 0;
         _collider2D = _drawLine.curLine.gameObject.AddComponent<EdgeCollider2D>();
         _collider2D.edgeRadius = _interval;
-        _collider2D.points = _points.ToArray();
+       _points.Clear();
     }
 }

@@ -31,17 +31,18 @@ public class DrawLineControl : MonoBehaviour
     public LayerMask layerMask;
 
     public LineRenderer curLine => _childLines.Peek();
-    public Trigger OnCreateDraw;
-
+    public Action OnCreateDraw;
+    
     private Stack<LineRenderer> _childLines;
-
+    
+    private ActionFixedUpdate  _fixedUpdate;
     private const int DefaultFrequency = 60;
 
     private void Awake()
     {
         TargetCamera = Camera.main;
         _childLines = new Stack<LineRenderer>();
-        OnCreateDraw = new Trigger();
+        _fixedUpdate = ActionKit.SecondsFixedUpdate(DefaultFrequency, DrawLine); 
         OnReset();
         
     }
@@ -55,26 +56,29 @@ public class DrawLineControl : MonoBehaviour
 
     private void Update()
     {
+        _fixedUpdate.SetFrequency((int)(Power*DefaultFrequency));
         DrawUpdate();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Clear();
         }
+        
     }
 
     private void DrawUpdate()
     {
-        DrawLine();
+        if (Input.GetMouseButtonDown(0))
+        {
+            CreateLine();
+        }
+        //DrawLine();
         StopDraw();
     }
     
 
     private void DrawLine()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            CreateLine();
-        }
+       
         if (Input.GetMouseButton(0))
         {
             var pos = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
@@ -136,7 +140,7 @@ public class DrawLineControl : MonoBehaviour
         go.SetActive(true);
         child.positionCount = 0;
         _childLines.Push(child);
-        OnCreateDraw.Execute();
+        OnCreateDraw?.Invoke();
     }
 
     private void OnReset()

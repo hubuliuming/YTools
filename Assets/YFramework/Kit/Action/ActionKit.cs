@@ -38,7 +38,7 @@ namespace YFramework.Kit
             if (frequency <= 0 || action == null ) return null;
             var go = new GameObject("FixedUpdate");
             var fixedUpdate = go.AddComponent<ActionFixedUpdate>();
-            fixedUpdate.Init(ActionFixedUpdate.TimeType.Seconds,frequency,action);
+            fixedUpdate.InitState(1,frequency,action);
             return fixedUpdate;
         }
         
