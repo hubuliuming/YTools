@@ -318,11 +318,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 1
   IsUpReset: 0
+  <TargetCamera>k__BackingField: {fileID: 0}
   templatelineRenderer: {fileID: 2127812416}
   curLinePoints: []
   layerMask:
-    serializedVersion: 2
     m_Bits: 0
+  _fixedUpdate: {fileID: 0}
 --- !u!114 &298838778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c37b94804822134ead551bc2ec077fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _drawLine: {fileID: 0}
+  _collider2D: {fileID: 0}
+  _points: []
+  _interval: 0
+  _readIndex: 0
+  _writeIndex: 0
 --- !u!1 &1328835338
 GameObject:
   m_ObjectHideFlags: 0
