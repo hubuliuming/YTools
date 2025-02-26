@@ -71,11 +71,7 @@ public class RockerControl : MonoBehaviour
 
         imgTouchListener.onClick = (evt, args) =>
         {
-            imgDirBG.transform.position = defaultPos; //把轮盘位置  还原
-            imgDirPoint.color = new Color(1, 1, 1, 0.5f); //透明度设置为0.5  那个小点
-            imgDirPoint.transform.localPosition = Vector2.zero; //把轮盘上的小点清零
-            ArrowRoot.gameObject.SetActive(false);
-            InputMoveKey(Vector2.zero); //手指抬起的适合 归0 
+            ResetState();
             OnClickDown?.Invoke();
         };
         imgTouchListener.onDrag = (evt, args) =>
@@ -108,6 +104,19 @@ public class RockerControl : MonoBehaviour
 
             InputMoveKey(dir.normalized); //把方向 归1
         };
+        imgTouchListener.onClickUp = (evt, args) =>
+        {
+            ResetState();
+        };
+    }
+
+    private void ResetState()
+    {
+        imgDirBG.transform.position = defaultPos; //把轮盘位置  还原
+        imgDirPoint.color = new Color(1, 1, 1, 0.5f); //透明度设置为0.5  那个小点
+        imgDirPoint.transform.localPosition = Vector2.zero; //把轮盘上的小点清零
+        ArrowRoot.gameObject.SetActive(false);
+        InputMoveKey(Vector2.zero); //手指抬起的适合 归0 
     }
 
 
@@ -115,29 +124,6 @@ public class RockerControl : MonoBehaviour
     {
         this.Dir = dir;
     }
-
-
-  
-    // void Update()
-    // {
-    //     if (dir != Vector3.zero)
-    //     {
-    //         if (!RePlay)
-    //         {  //如果当前不是重播状态的话
-    //
-    //             if (!GameOver)
-    //             {
-    //                 Vector3 pos = dir * (Time.deltaTime * speedMultipler);
-    //                 //用来控制玩家模型的位置
-    //                 Debug.Log(pos);
-    //                 //playerTrans.position += new Vector3(pos.x, playerTrans.position.y, pos.y);        
-    //             }
-    //         }
-    //     }
-    //   
-    //    
-    //     
-    // }
     
 }
 public static class ClientConfig 
